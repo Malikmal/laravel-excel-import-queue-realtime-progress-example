@@ -8,6 +8,8 @@
 
         <title>Laravel</title>
 
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+
         <!-- Styles -->
         <style>
         </style>
@@ -22,7 +24,7 @@
             @endif
             @if(session()->has('success'))
                 <div class="alert alert-success">
-                    success: {{ implode('', $errors->all(':message')) }}
+                    {{ implode('', $errors->all(':message')) }}
                 </div>
             @endif
             <form action="{{ route('import') }}" method="post" enctype="multipart/form-data" class="inline-flex justify-start items-center gap-2">
@@ -34,13 +36,29 @@
                 <div class="form-group">
                     <button class="btn btn-primary">Import</button>
                 </div>
+                <div id="percentage"></div>
             </form>
             <table class="table">
-                <th>
-                    <td>Time</td>
-                    <td>File Name</td>
-                    <td>Status</td>
-                </th>
+                <tr>
+                    <th>Time</th>
+                    <th>File Name</th>
+                    <th>Status</th>
+                </tr>
+                @foreach ($imports as $import)
+                    <tr>
+                        <td>{{ $import->created_at }} <br> ({{ $import->created_at->diffForHumans() }})</td>
+                        <td>{{ $import->file_name }}</td>
+                        <td>
+                            {{ $import->status_text }}
+
+                            @if ($import->status === \App\Enums\ImportStatusEnum::processing->value)
+                                <span id="percentage" data-id={{ $import->id }}>{{ $import->percentage }}%</span>
+                            @endif
+
+                        </td>
+                        {{-- <td id="percentage" data-id={{ $import->id }}>{{ $import->percentage }}%</td> --}}
+                    </tr>
+                @endforeach
             </table>
         </main>
     </body>

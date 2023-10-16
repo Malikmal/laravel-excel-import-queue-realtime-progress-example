@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('file_name');
             $table->tinyInteger('status')->comment('enum progammatically e.g: 0: uploaded, 1: imported');
             $table->string('file_path');
+            $table->string('total_rows')->nullable();
+            $table->smallInteger('percentage')->default(0)->nullable();
             $table->timestampsTz();
             $table->softDeletesTz();
         });

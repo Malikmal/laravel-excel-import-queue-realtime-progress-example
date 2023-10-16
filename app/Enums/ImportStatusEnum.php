@@ -3,6 +3,8 @@
 namespace App\Enums;
 
 enum ImportStatusEnum: int {
-    case UPLOADED = 0;
-    case IMPORTED = 1;
+    case pending = 0;
+    case processing = 1;
+    case failed = 2;
+    case completed = 3;
 }

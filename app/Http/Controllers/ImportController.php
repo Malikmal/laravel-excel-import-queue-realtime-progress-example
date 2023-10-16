@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Enums\ImportStatusEnum;
 use App\Http\Requests\ImportRequest;
+use App\Imports\ProductImport;
 use App\Models\Import;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Excel as ExcelExcel;
 
 class ImportController extends Controller
 {
@@ -21,18 +23,22 @@ class ImportController extends Controller
             // save imported file data
             $import = Import::create([
                 'file_name' => $request->file('file')->getClientOriginalName(),
-                'status' => ImportStatusEnum::UPLOADED,
+                'status' => ImportStatusEnum::pending,
                 'file_path' => $filePath,
             ]);
 
-            // trigger job to import file
-
+            // import file in queue
+            (new ProductImport($import))->queue(
+                filePath: $filePath,
+                disk: config('filesystems.default'),
+                readerType: ExcelExcel::CSV,
+            );
 
             DB::commit();
 
             return redirect()
                 ->route('welcome')
-                ->withSuccess('success');
+                ->withSuccess('processing');
         } catch (\Throwable $th) {
             DB::rollBack();
             Log::error($th);
