@@ -1,3 +1,9 @@
+
+<img width="1680" alt="image" src="https://github.com/Malikmal/laravel-excel-import-queue-realtime-progress-example/assets/36214726/11f5eefe-d3d8-40c4-8975-92c3a7825e26">
+video demo : https://jam.dev/c/023b2936-e271-435f-b8ef-efceb7a376ad
+
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
