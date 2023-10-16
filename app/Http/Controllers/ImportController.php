@@ -38,7 +38,7 @@ class ImportController extends Controller
 
             return redirect()
                 ->route('welcome')
-                ->withSuccess('processing');
+                ->withSuccess('Processing to import');
         } catch (\Throwable $th) {
             DB::rollBack();
             Log::error($th);

@@ -24,7 +24,7 @@
             @endif
             @if(session()->has('success'))
                 <div class="alert alert-success">
-                    {{ implode('', $errors->all(':message')) }}
+                    {{ session()->get('success') }}
                 </div>
             @endif
             <form action="{{ route('import') }}" method="post" enctype="multipart/form-data" class="inline-flex justify-start items-center gap-2">
